@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Alert, Button, Keyboard, Pressable, Text, View } from 'react-native';
+import { Keyboard, Pressable, Text, View } from 'react-native';
+import ContextMenu from 'react-native-context-menu-view';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
-import ContextMenu from 'react-native-context-menu-view';
 
 const programFormSchema = z.object({
     name: z.string().min(3, 'Program name must be at least 3 characters').max(50, "Program name can't be longer than 50 characters"),
@@ -75,7 +75,7 @@ export default function Index() {
                         </View>
                     </ContextMenu>
 
-                    <Link href={{ pathname: '/create-program/select-schedule' }}>
+                    <Link href={{ pathname: '/create-program/select-schedule', params: { selected: scheduleValue } }}>
                         <View className='dark:bg-zinc-800 px-5 py-3 rounded-b-lg w-full flex-row justify-between items-center'>
                             <Text className='dark:text-white text-lg'>Schedule</Text>
                             <Text className='dark:text-zinc-400 text-lg'>{scheduleValue}</Text>
