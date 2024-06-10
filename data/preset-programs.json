@@ -1,0 +1,297 @@
+[
+    {
+        "id": "stronglifts",
+        "name": "StrongLifts 5x5",
+        "schedules": [
+            {
+                "frequency": "3x/week",
+                "days": ["Monday", "Wednesday", "Friday"]
+            },
+            {
+                "frequency": "Every other day",
+                "days": []
+            }
+        ],
+        "tags": ["Strength & Size", "Beginner"],
+        "workouts": [
+            {
+                "name": "Workout A",
+                "exercises": [
+                    {
+                        "name": "Squat",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Bench Press",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Barbell Rows",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    }
+                ]
+            },
+            {
+                "name": "Workout B",
+                "exercises": [
+                    {
+                        "name": "Squat",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Overhead Press",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Deadlift",
+                        "sets": 1,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 10
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        "id": "stronglifts-plus",
+        "name": "StrongLifts 5x5 Plus",
+        "schedules": [
+            {
+                "frequency": "3x/week",
+                "days": ["Monday", "Wednesday", "Friday"]
+            },
+            {
+                "frequency": "Every other day",
+                "days": []
+            }
+        ],
+        "tags": ["Hypertrophy", "Beginner", "Intermediate"],
+        "workouts": [
+            {
+                "name": "Workout A",
+                "exercises": [
+                    {
+                        "name": "Squat",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Bench Press",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Barbell Rows",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Situp",
+                        "sets": 3,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 0,
+                        "increment": 0
+                    }
+                ]
+            },
+            {
+                "name": "Workout B",
+                "exercises": [
+                    {
+                        "name": "Deadlift",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Overhead Press",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Dips",
+                        "sets": 5,
+                        "reps": 5,
+                        "rest": 180,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Pull-ups",
+                        "sets": 3,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 0,
+                        "increment": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "ppl",
+        "name": "Push Pull Legs (PPL)",
+        "schedules": [
+            {
+                "frequency": "6x/week",
+                "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+            },
+            {
+                "frequency": "Every other day",
+                "days": []
+            }
+        ],
+        "tags": ["Hypertrophy", "Intermediate"],
+        "workouts": [
+            {
+                "name": "Push",
+                "exercises": [
+                    {
+                        "name": "Bench Press",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Overhead Press",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Tricep Pushdown",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Lateral Raises",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    }
+                ]
+            },
+            {
+                "name": "Pull",
+                "exercises": [
+                    {
+                        "name": "Deadlift",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Barbell Rows",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Pull-ups",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Face Pulls",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    }
+                ]
+            },
+            {
+                "name": "Legs",
+                "exercises": [
+                    {
+                        "name": "Squat",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Leg Press",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Leg Curls",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    },
+                    {
+                        "name": "Calf Raises",
+                        "sets": 4,
+                        "reps": 8,
+                        "rest": 90,
+                        "weight": 45,
+                        "increment": 5
+                    }
+                ]
+            }
+        ]
+    }
+]

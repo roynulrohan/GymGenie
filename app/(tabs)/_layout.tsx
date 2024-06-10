@@ -2,26 +2,25 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { FontAwesome6 } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { AntDesign, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
+import { Pressable } from 'react-native';
+import tailwindColors from 'tailwindcss/colors';
+import { Link } from '@react-navigation/native';
 
 export default function TabLayout() {
-    const colorScheme = useColorScheme();
-
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: Colors[colorScheme ?? 'light'].text,
-                headerShown: false,
-                tabBarStyle: {paddingTop:5, height:90},
+                tabBarActiveTintColor: tailwindColors.red[500],
+                headerStyle: { backgroundColor: 'black' },
+                tabBarStyle: { backgroundColor: tailwindColors.zinc[950], paddingTop: 5, height: 90 },
             }}>
             <Tabs.Screen
                 name='index'
                 options={{
                     title: 'Home',
+                    headerTitle: 'GYM GENIE',
+                    headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
                     tabBarIcon: ({ color, focused }) => <TabBarIcon name={focused ? 'home' : 'home-outline'} size={24} color={color} />,
                 }}
             />
@@ -30,6 +29,11 @@ export default function TabLayout() {
                 options={{
                     title: 'Programs',
                     tabBarIcon: ({ color, focused }) => <FontAwesome6 name='gripfire' size={24} color={color} />,
+                    headerRight: () => (
+                        <Link to={'/create-program'} className='px-10 py-2'>
+                            <TabBarIcon name='add' size={25} color={tailwindColors.red[500]} />
+                        </Link>
+                    ),
                 }}
             />
 

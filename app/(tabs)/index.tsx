@@ -1,5 +1,5 @@
-import { ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 export default function Home() {
-    return <ScrollView className='dark:bg-zinc-900'></ScrollView>;
+    return <SafeAreaView className='dark:bg-black h-full'></SafeAreaView>;
 }
