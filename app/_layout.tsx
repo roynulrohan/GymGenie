@@ -1,17 +1,23 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Link, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
-import '../global.css';
 import tailwindColors from 'tailwindcss/colors';
-import { Pressable } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
+import '../global.css';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const MyTheme = {
+    ...DarkTheme,
+    colors: {
+        ...DarkTheme.colors,
+        primary: tailwindColors.red[500],
+    },
+};
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
@@ -30,27 +36,10 @@ export default function RootLayout() {
     }
 
     return (
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <ThemeProvider value={colorScheme === 'dark' ? MyTheme : DefaultTheme}>
             <Stack screenOptions={{ headerStyle: { backgroundColor: tailwindColors.zinc[950] } }}>
                 <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-                <Stack.Screen
-                    name='create-program'
-                    options={{
-                        title: 'Create Program',
-                        presentation: 'modal',
-                        headerStyle: { backgroundColor: tailwindColors.zinc[900] },
-                        headerLeft: () => (
-                            <Link href='../'>
-                                <ThemedText className='!text-red-600'>Cancel</ThemedText>
-                            </Link>
-                        ),
-                        headerRight: () => (
-                            <Pressable disabled>
-                                <ThemedText className='!text-zinc-400'>Save</ThemedText>
-                            </Pressable>
-                        ),
-                    }}
-                />
+                <Stack.Screen name='create-program' options={{ headerShown: false, presentation: 'modal' }} />
                 <Stack.Screen name='auth' options={{ title: 'Sign In' }} />
                 <Stack.Screen name='+not-found' />
             </Stack>
