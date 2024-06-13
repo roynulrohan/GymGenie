@@ -4,7 +4,7 @@ import { Pressable, Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 import tailwindColors from 'tailwindcss/colors';
 
-const scheduleOptions = ['1x/week', '2x/week', '3x/week', '4x/week', '5x/week', '6x/week', 'Every other day', 'Every 2 days'];
+const scheduleOptions = ['1x/week', '2x/week', '3x/week', '4x/week', '5x/week', '6x/week', 'Every other day'];
 
 export default function SelectSchedule() {
     const router = useRouter();

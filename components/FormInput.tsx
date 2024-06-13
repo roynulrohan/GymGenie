@@ -8,7 +8,7 @@ interface Styles {
 }
 
 interface FormInputProps extends TextInputProps {
-    control: Control<FieldValues> | undefined;
+    control: Control<any> | undefined;
     name: string;
     errorProps?: TextProps;
 }

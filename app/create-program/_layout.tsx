@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components/ThemedText';
 import { Link, Stack } from 'expo-router';
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import tailwindColors from 'tailwindcss/colors';
 
 export default function CreateProgramLayout() {
@@ -12,7 +12,7 @@ export default function CreateProgramLayout() {
                 options={{
                     title: 'Create Program',
                     headerLeft: () => (
-                        <Link href='../'>
+                        <Link href='../' className='px-5 py-2' suppressHighlighting>
                             <ThemedText className='!text-red-600'>Cancel</ThemedText>
                         </Link>
                     ),
