@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import store from '@/redux/store';
+import { Provider } from 'react-redux';
 import tailwindColors from 'tailwindcss/colors';
 import '../global.css';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -36,13 +38,15 @@ export default function RootLayout() {
     }
 
     return (
-        <ThemeProvider value={colorScheme === 'dark' ? MyTheme : DefaultTheme}>
-            <Stack screenOptions={{ headerStyle: { backgroundColor: tailwindColors.zinc[950] } }}>
-                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-                <Stack.Screen name='create-program' options={{ headerShown: false, presentation: 'modal' }} />
-                <Stack.Screen name='auth' options={{ title: 'Sign In' }} />
-                <Stack.Screen name='+not-found' />
-            </Stack>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider value={colorScheme === 'dark' ? MyTheme : DefaultTheme}>
+                <Stack screenOptions={{ headerStyle: { backgroundColor: tailwindColors.zinc[950] } }}>
+                    <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+                    <Stack.Screen name='create-program' options={{ headerShown: false, presentation: 'formSheet' }} />
+                    <Stack.Screen name='auth' options={{ title: 'Sign In' }} />
+                    <Stack.Screen name='+not-found' />
+                </Stack>
+            </ThemeProvider>
+        </Provider>
     );
 }

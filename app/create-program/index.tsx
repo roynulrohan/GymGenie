@@ -1,52 +1,61 @@
 import FormInput from '@/components/FormInput';
 import { ThemedText } from '@/components/ThemedText';
+import { addWorkout, deleteWorkout, IExercise } from '@/redux/programCreateSlice';
+import { AppDispatch, RootState } from '@/redux/store';
 import { AntDesign } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import React, { useEffect, useMemo } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Keyboard, Pressable, StyleSheet, Text, View } from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { useDispatch, useSelector } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
 import tailwindColors from 'tailwindcss/colors';
+import uuid from 'react-native-uuid';
 import { z } from 'zod';
 
 const programFormSchema = z.object({
     name: z.string().min(3, 'Program name must be at least 3 characters').max(50, "Program name can't be longer than 50 characters"),
     workoutSplit: z.string(),
     schedule: z.string(),
-    workouts: z.array(z.object({ name: z.string(), exercises: z.array(z.string()) })),
+    workouts: z.array(
+        z.object({
+            id: z.string(),
+            name: z.string(),
+            exercises: z.array(z.object({ id: z.string(), name: z.string(), sets: z.number(), reps: z.number(), weight: z.number(), rest: z.number() })),
+        })
+    ),
 });
 
 interface IProgramForm {
     name: string;
     workoutSplit: string;
     schedule: string;
-    workouts: { key: string; name: string; exercises: string[] }[];
+    workouts: { id: string; key: string; name: string; exercises: IExercise[] }[];
 }
 
 const workoutSplitOptions = ['Full Body', 'Upper/Lower', 'Push/Pull/Legs', 'Push Pull', 'Body Part Split', 'Other'];
 
 export default function Index() {
     const navigation = useNavigation();
+    const router = useRouter();
     const params = useLocalSearchParams();
+    const dispatch = useDispatch<AppDispatch>();
 
+    const workouts = useSelector((state: RootState) => state.programCreate.workouts);
     const { control, handleSubmit, formState, watch, setValue } = useForm<IProgramForm>({
         defaultValues: {
             name: '',
             workoutSplit: 'Full Body',
             schedule: '3x/week',
-            workouts: [{ key: 'A', name: 'Workout A', exercises: ['Squat', 'Bench', 'BB Row'] }],
+            workouts: [],
         },
         resolver: zodResolver(programFormSchema),
     });
 
     const formData = watch();
-
-    const onSubmit = (data: FieldValues) => {
-        console.log(data);
-    };
 
     // Define available keys
     const availableKeys = useMemo(() => {
@@ -55,17 +64,9 @@ export default function Index() {
         return allKeys.filter((key) => !usedKeys.includes(key));
     }, [formData.workouts]);
 
-    const addWorkout = () => {
-        const newWorkout = { key: availableKeys[0], name: `Workout ${availableKeys[0]}`, exercises: [] };
-        setValue('workouts', [...formData.workouts, newWorkout]);
-    };
-
-    const deleteWorkout = (key: string) => {
-        setValue(
-            'workouts',
-            formData.workouts.filter((workout) => workout.key !== key)
-        );
-    };
+    useEffect(() => {
+        setValue('workouts', workouts);
+    }, [workouts]);
 
     useEffect(() => {
         navigation.setOptions({
@@ -80,6 +81,20 @@ export default function Index() {
     useEffect(() => {
         setValue('schedule', (params.schedule as string) ?? '3x/week');
     }, [params.schedule]);
+
+    const onSubmit = (data: FieldValues) => {
+        console.log(data);
+    };
+
+    const handleAddWorkout = () => {
+        const newWorkout = { id: uuid.v4().toString(), key: availableKeys[0], name: `Workout ${availableKeys[0]}`, exercises: [] };
+
+        dispatch(addWorkout(newWorkout));
+    };
+
+    const handleDeleteWorkout = (key: string) => {
+        dispatch(deleteWorkout(key));
+    };
 
     return (
         <Pressable onPress={Keyboard.dismiss}>
@@ -116,6 +131,7 @@ export default function Index() {
                 <View className='mt-10  rounded-lg items-stretch'>
                     <SwipeListView
                         data={formData.workouts}
+                        scrollEnabled={false}
                         disableRightSwipe
                         stopRightSwipe={-75}
                         rightOpenValue={-75}
@@ -123,7 +139,13 @@ export default function Index() {
                         previewOpenValue={-40}
                         previewOpenDelay={3000}
                         renderItem={(data, rowMap) => (
-                            <View
+                            <Pressable
+                                onPress={() => {
+                                    router.navigate({
+                                        pathname: '/create-program/edit-workout',
+                                        params: { id: data.item.id },
+                                    });
+                                }}
                                 className={twMerge(
                                     'dark:bg-zinc-800 px-5 py-3 w-full flex-row justify-between items-center',
                                     data.index === 0 ? 'rounded-t-lg' : ''
@@ -134,13 +156,23 @@ export default function Index() {
                                 }}>
                                 <View>
                                     <Text className='dark:text-white text-lg'>{data.item.name}</Text>
-                                    {data.item.exercises.length !== 0 && <Text className='dark:text-zinc-400 text-sm'>{data.item.exercises.join(', ')}</Text>}
+                                    {data.item.exercises.length !== 0 && (
+                                        <Text className='dark:text-zinc-400 text-sm'>{data.item.exercises.map((u) => u.name).join(', ')}</Text>
+                                    )}
                                 </View>
                                 <AntDesign name='right' size={16} color={tailwindColors.zinc[500]} />
-                            </View>
+                            </Pressable>
                         )}
                         renderHiddenItem={(data, rowMap) => (
-                            <Pressable onPress={() => deleteWorkout(data.item.key)} className='rounded-lg items-center flex-1 flex-row'>
+                            <Pressable
+                                onPress={() => {
+                                    if (data.index === 0) {
+                                        rowMap[data.item.key].closeRow();
+                                        return;
+                                    }
+                                    handleDeleteWorkout(data.item.id);
+                                }}
+                                className='rounded-lg items-center flex-1 flex-row'>
                                 <View
                                     className={twMerge(
                                         'absolute bg-red-500 right-0 top-0 bottom-0 w-[75px] items-center flex-1',
@@ -153,7 +185,7 @@ export default function Index() {
                     />
 
                     <Pressable
-                        onPress={addWorkout}
+                        onPress={handleAddWorkout}
                         className={twMerge('dark:bg-zinc-800 px-5 py-3 w-full', formData.workouts.length !== 0 ? 'rounded-b-lg' : 'rounded-lg')}>
                         <Text className='text-red-600 text-lg'>Add Workout</Text>
                     </Pressable>
