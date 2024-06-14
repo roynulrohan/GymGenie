@@ -1,6 +1,9 @@
+import WeightPlatesView from '@/components/WeightPlatesView';
 import { AppDispatch, RootState } from '@/redux/store';
+import { calculateWeightPlates } from '@/services/WeightPlateCalculator';
+import { roundToNearestFive } from '@/util/formatting';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,8 +24,16 @@ export default function ExerciseView() {
     }
 
     return (
-        <Pressable onPress={Keyboard.dismiss}>
+        <Pressable
+            onPress={() => {
+                Keyboard.dismiss();
+                setCurrentWeight((prev) => roundToNearestFive(prev || 45));
+            }}>
             <View className='bg-zinc-900 h-full px-5 py-10'>
+                <View className='my-10'>
+                    <WeightPlatesView weight={currentWeight || 45} />
+                </View>
+
                 <View className='mt-10 rounded-lg flex-row w-full'>
                     <Pressable
                         onPress={() => router.push({ pathname: '/create-program/set-rep-edit', params: { exerciseId, workoutId } })}
