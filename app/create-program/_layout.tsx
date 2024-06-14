@@ -41,18 +41,6 @@ export default function CreateProgramLayout() {
                 options={{ title: 'Edit Workout', headerBackTitle: 'Back', headerTintColor: tailwindColors.red[600], headerTitleStyle: { color: 'white' } }}
             />
             <Stack.Screen name='exercise-view' options={{ title: 'Exercise' }} />
-            <Stack.Screen
-                name='set-rep-edit'
-                options={{
-                    title: 'SetsxReps',
-                    presentation: 'modal',
-                    headerLeft: () => (
-                        <Link href='../' className='px-5 py-2' suppressHighlighting>
-                            <ThemedText className='!text-red-600'>Close</ThemedText>
-                        </Link>
-                    ),
-                }}
-            />
         </Stack>
     );
 }

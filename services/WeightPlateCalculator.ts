@@ -17,13 +17,15 @@ export const calculateWeightPlates = (weight: number): Record<string, number> =>
     let remainingWeight = (weight - barWeight) / 2;
     const result: Record<string, number> = {};
 
-    for (const plateWeight of Object.keys(plates)
+    const availablePlates = { ...plates };
+
+    for (const plateWeight of Object.keys(availablePlates)
         .map(Number)
         .sort((a, b) => b - a)) {
         let count = 0;
-        while (remainingWeight >= plateWeight && plates[plateWeight] > 0) {
+        while (remainingWeight >= plateWeight && availablePlates[plateWeight] > 0) {
             remainingWeight -= plateWeight;
-            plates[plateWeight]--;
+            availablePlates[plateWeight]--;
             count++;
         }
         if (count > 0) {
@@ -34,11 +36,6 @@ export const calculateWeightPlates = (weight: number): Record<string, number> =>
     if (remainingWeight > 0) {
         return {};
     }
-
-    // Reset the plates after calculation
-    Object.keys(plates).forEach((plateWeight) => {
-        plates[Number(plateWeight)] = 10;
-    });
 
     return result;
 };
