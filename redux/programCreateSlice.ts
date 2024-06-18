@@ -2,16 +2,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import uuid from 'react-native-uuid';
 
+type ExerciseEquipment = 'Barbell' | 'Dumbbell' | 'Machine' | 'Bodyweight' | 'Cable' | 'Other';
+type ExerciseType = 'SetxRepxWeight' | 'SetxDuration';
+
 export interface IExercise {
     id: string;
     name: string;
     description: string;
     muscle: string;
-    equipment: string;
-    type: string;
+    equipment: ExerciseEquipment;
+    type: ExerciseType;
     sets: number;
     reps: number;
     startingWeight: number;
+    increment: number;
+    incrementFrequency: number;
+    deloadPercentage: number;
+    deloadFrequency: number;
 }
 
 export interface IWorkout {
@@ -43,6 +50,10 @@ const initialState: WorkoutsState = {
                     sets: 5,
                     reps: 5,
                     startingWeight: 45,
+                    increment: 5,
+                    incrementFrequency: 1,
+                    deloadPercentage: 0.1,
+                    deloadFrequency: 3,
                 },
                 {
                     id: 'bench-press',
@@ -55,6 +66,10 @@ const initialState: WorkoutsState = {
                     sets: 5,
                     reps: 5,
                     startingWeight: 45,
+                    increment: 5,
+                    incrementFrequency: 1,
+                    deloadPercentage: 0.1,
+                    deloadFrequency: 3,
                 },
                 {
                     id: 'barbell-row',
@@ -67,6 +82,10 @@ const initialState: WorkoutsState = {
                     sets: 5,
                     reps: 5,
                     startingWeight: 45,
+                    increment: 5,
+                    incrementFrequency: 1,
+                    deloadPercentage: 0.1,
+                    deloadFrequency: 3,
                 },
             ],
         },

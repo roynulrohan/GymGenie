@@ -3,14 +3,15 @@ import WeightPlatesView from '@/components/WeightPlatesView';
 import { updateExercise } from '@/redux/programCreateSlice';
 import { AppDispatch, RootState } from '@/redux/store';
 import { roundToNearestFive } from '@/util/formatting';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import React, { useEffect, useRef, useState } from 'react';
 import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import tailwindColors from 'tailwindcss/colors';
 
 export default function ExerciseView() {
     const { exerciseId, workoutId } = useLocalSearchParams();
+    const navigation = useNavigation();
     const router = useRouter();
     const exercise = useSelector((state: RootState) =>
         state.programCreate.workouts.find((workout) => workout.id === workoutId)?.exercises.find((exercise) => exercise.id === exerciseId)
@@ -20,6 +21,14 @@ export default function ExerciseView() {
     const currentWeightInputRef = useRef<TextInput>(null);
 
     const [currentWeight, setCurrentWeight] = useState<number | null>(exercise?.startingWeight || 45);
+    const [currentIncrements, setCurrentIncrements] = useState<number | null>(exercise?.increment || 5);
+    const [currentIncrementFrequency, setCurrentIncrementFrequency] = useState<number | null>(exercise?.incrementFrequency || 1);
+
+    useEffect(() => {
+        navigation.setOptions({
+            title: exercise?.name,
+        });
+    }, [navigation]);
 
     if (!exercise) {
         return null;
@@ -163,6 +172,50 @@ export default function ExerciseView() {
                                 }}>
                                 <Text className='text-zinc-400 text-lg'>- 5</Text>
                             </TouchableHighlight>
+                        </View>
+                    </View>
+                </View>
+
+                <View className='dark:bg-zinc-800 mt-10 rounded-lg flex-row w-full'>
+                    <View
+                        className={'px-5 py-3 rounded-l-lg items-center justify-center flex-1'}
+                        style={{
+                            borderRightColor: 'black',
+                            borderRightWidth: StyleSheet.hairlineWidth,
+                        }}>
+                        <Text className='dark:text-zinc-400 text-sm text-center mb-1'>Increments (lbs)</Text>
+                        <View className='flex-row items-center justify-center'>
+                            <TextInput
+                                value={currentIncrements?.toString()}
+                                onChange={(e) => {
+                                    if (!e.nativeEvent.text) {
+                                        setCurrentIncrements(null);
+                                        return;
+                                    }
+
+                                    setCurrentIncrements(parseInt(e.nativeEvent.text));
+                                }}
+                                keyboardType='numeric'
+                                className='dark:text-white text-xl'
+                            />
+                        </View>
+                    </View>
+                    <View className={'px-5 py-3 rounded-l-lg items-center justify-center flex-1'}>
+                        <Text className='dark:text-zinc-400 text-sm text-center mb-1'>Increment Frequency</Text>
+                        <View className='flex-row items-center justify-center'>
+                            <TextInput
+                                value={currentIncrementFrequency?.toString()}
+                                onChange={(e) => {
+                                    if (!e.nativeEvent.text) {
+                                        setCurrentIncrementFrequency(null);
+                                        return;
+                                    }
+
+                                    setCurrentIncrementFrequency(parseInt(e.nativeEvent.text));
+                                }}
+                                keyboardType='numeric'
+                                className='dark:text-white text-xl'
+                            />
                         </View>
                     </View>
                 </View>
