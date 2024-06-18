@@ -28,7 +28,7 @@ export default function WeightPlatesView({ weight, ...rest }: WeightPlatesViewPr
                 {Array.from({ length: weightPlates[45] }).map((_, index) => (
                     <Animated.View
                         key={index}
-                        className='bg-red-600 w-8 h-[180px] rounded-sm ml-[1px] flex-row items-center justify-center'
+                        className='bg-red-600 w-8 h-[180px] rounded-md ml-[1px] flex-row items-center justify-center'
                         entering={SlideInRight}
                         exiting={SlideOutRight}>
                         <Text className='text-white text-lg font-bold'>45</Text>
@@ -46,7 +46,7 @@ export default function WeightPlatesView({ weight, ...rest }: WeightPlatesViewPr
                 {Array.from({ length: weightPlates[25] }).map((_, index) => (
                     <Animated.View
                         key={index}
-                        className='bg-green-600 w-8 h-[140px] rounded-sm ml-[1px] flex-row items-center justify-center'
+                        className='bg-green-600 w-8 h-[140px] rounded-md ml-[1px] flex-row items-center justify-center'
                         entering={SlideInRight}
                         exiting={SlideOutRight}>
                         <Text className='text-white text-lg font-bold'>25</Text>
@@ -55,7 +55,7 @@ export default function WeightPlatesView({ weight, ...rest }: WeightPlatesViewPr
                 {Array.from({ length: weightPlates[10] }).map((_, index) => (
                     <Animated.View
                         key={index}
-                        className='bg-yellow-600 w-7 h-[120px] rounded-sm ml-[1px] flex-row items-center justify-center'
+                        className='bg-yellow-500 w-7 h-[120px] rounded-md ml-[1px] flex-row items-center justify-center'
                         entering={SlideInRight}
                         exiting={SlideOutRight}>
                         <Text className='text-white text-lg font-bold'>10</Text>
@@ -64,7 +64,7 @@ export default function WeightPlatesView({ weight, ...rest }: WeightPlatesViewPr
                 {Array.from({ length: weightPlates[5] }).map((_, index) => (
                     <Animated.View
                         key={index}
-                        className='bg-purple-600 w-6 h-[80px] rounded-sm ml-[1px] flex-row items-center justify-center'
+                        className='bg-purple-600 w-6 h-[80px] rounded-md ml-[1px] flex-row items-center justify-center'
                         entering={SlideInRight}
                         exiting={SlideOutRight}>
                         <Text className='text-white text-lg font-bold'>5</Text>
@@ -73,7 +73,7 @@ export default function WeightPlatesView({ weight, ...rest }: WeightPlatesViewPr
                 {Array.from({ length: weightPlates[2.5] }).map((_, index) => (
                     <Animated.View
                         key={index}
-                        className='bg-indigo-600 w-6 h-[60px] rounded-sm ml-[1px] items-center justify-center'
+                        className='bg-zinc-600 border-r-2 border-zinc-900 w-6 h-[60px] rounded-md ml-[1px] items-center justify-center'
                         entering={SlideInRight}
                         exiting={SlideOutRight}>
                         <Text className='text-white text-lg font-bold leading-none'>2</Text>
