@@ -6,7 +6,11 @@ export const WorkoutResolver = {
     Exercises: async (obj: Workout, {}, context) => {
       const exercises = (await Workout.findByPk(obj.id, { include: [{ model: Exercise, as: 'Exercises' }] })).Exercises;
 
-      exercises.reverse();
+      if (obj.exerciseOrder) {
+        exercises.sort((a, b) => {
+          return obj.exerciseOrder.indexOf(a.id) - obj.exerciseOrder.indexOf(b.id);
+        });
+      }
 
       return exercises;
     },

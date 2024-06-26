@@ -11,7 +11,9 @@ import { Exercise } from './src/models/Exercise';
 import { Program } from './src/models/Program';
 import { User } from './src/models/User';
 import { Workout } from './src/models/Workout';
-import { PresetExercises } from './src/data/presets';
+import { PresetExercises } from './src/data/presetExercises';
+import { PresetPrograms } from './src/data/presetPrograms';
+import { createProgram } from './src/controllers/ProgramController';
 dotenv.config();
 
 const app = express();
@@ -58,12 +60,18 @@ const init = async () => {
     Exercise.belongsToMany(Workout, { through: 'WorkoutExercises' });
     Workout.belongsToMany(Exercise, { through: 'WorkoutExercises' });
 
-    await sequelize.sync({});
+    await sequelize.sync({ alter: true });
 
+    await Exercise.destroy({ where: {} });
+    await Workout.destroy({ where: {} });
     await Program.destroy({ where: {} });
 
     PresetExercises.forEach(async (preset) => {
       await Exercise.findOrCreate({ where: { name: preset.name }, defaults: preset });
+    });
+
+    PresetPrograms.forEach(async (preset) => {
+      await createProgram(preset);
     });
   });
 

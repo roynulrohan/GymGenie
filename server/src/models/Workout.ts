@@ -1,4 +1,4 @@
-import { DataTypes, HasManySetAssociationsMixin, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import { DataTypes, HasManyAddAssociationMixin, HasManySetAssociationsMixin, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from '../db/connection';
 import { Exercise } from './Exercise';
 
@@ -13,8 +13,11 @@ export interface WorkoutUpdateDAO {
 export class Workout extends Model<InferAttributes<Workout>, InferCreationAttributes<Workout>> {
   public id!: string;
   public name!: string;
+  public exerciseOrder: string[];
 
   public readonly Exercises?: Exercise[];
+  public addExercise!: HasManyAddAssociationMixin<Exercise, string>;
+  public removeExercise!: HasManyAddAssociationMixin<Exercise, string>;
   public setExercises!: HasManySetAssociationsMixin<Exercise, string>;
 }
 
@@ -30,10 +33,12 @@ Workout.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    exerciseOrder: {
+      type: DataTypes.JSON,
+    },
   },
   {
     sequelize,
-    createdAt: 'dateCreated',
-    updatedAt: 'updateTimestamp',
+    timestamps: true,
   }
 );

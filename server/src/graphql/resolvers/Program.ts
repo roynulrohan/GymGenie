@@ -28,7 +28,11 @@ export const ProgramResolver = {
     Workouts: async (obj: Program, {}, context) => {
       const workouts = (await Program.findByPk(obj.id, { include: [{ model: Workout, as: 'Workouts' }] })).Workouts;
 
-      workouts.reverse();
+      if (obj.workoutOrder) {
+        workouts.sort((a, b) => {
+          return obj.workoutOrder.indexOf(a.name) - obj.workoutOrder.indexOf(b.name);
+        });
+      }
 
       return workouts;
     },
@@ -50,9 +54,47 @@ export const ProgramResolver = {
 
       const user = await getUserByAuthId(authId);
 
-      const programs = (await User.findByPk(user.id, { include: [{ model: Program, as: 'Programs' }] })).Programs;
+      if (!user) {
+        throw new GraphQLError('User not found', {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      }
 
-      return programs;
+      const presetPrograms = await Program.findAll({ where: { userId: null } });
+
+      const customPrograms = (await User.findByPk(user.id, { include: [{ model: Program, as: 'Programs' }] })).Programs;
+
+      return { presetPrograms, customPrograms };
+    },
+    getProgramByName: async (_, { name }, context) => {
+      const { token } = context;
+      const jwtResult = await isTokenValid(token);
+
+      if (jwtResult?.error || !jwtResult?.id) {
+        throw new GraphQLError(jwtResult?.error.toString(), {
+          extensions: {
+            code: 'UNAUTHORIZED',
+          },
+        });
+      }
+
+      const authId = jwtResult.id;
+
+      const user = await getUserByAuthId(authId);
+
+      const program = await Program.findOne({ where: { name, userId: null } });
+
+      if (!program) {
+        throw new GraphQLError('Program not found', {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      }
+
+      return { program };
     },
   },
 

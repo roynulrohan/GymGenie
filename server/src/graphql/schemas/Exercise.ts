@@ -1,4 +1,14 @@
 export const ExerciseTypeDef = `#graphql
+    enum Muscle {
+        Arms
+        Back
+        Chest
+        Legs
+        Shoulders
+        Abs
+        Other
+    }
+
     enum ExerciseEquipment {
         Barbell
         Dumbbell
@@ -17,7 +27,7 @@ export const ExerciseTypeDef = `#graphql
         id: String!
         name: String!
         description: String
-        muscle: String!
+        muscle: Muscle!
         equipment: ExerciseEquipment!
         type: ExerciseType!
         sets: Int!
@@ -32,7 +42,7 @@ export const ExerciseTypeDef = `#graphql
     input ExerciseInput {
         name: String!
         description: String
-        muscle: String!
+        muscle: Muscle!
         equipment: ExerciseEquipment!
         type: ExerciseType!
         sets: Int!

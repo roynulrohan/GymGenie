@@ -48,6 +48,9 @@ export class Exercise extends Model<InferAttributes<Exercise>, InferCreationAttr
   public incrementFrequency: number;
   public deloadPercentage: number;
   public deloadFrequency: number;
+
+  public dateCreated?: Date;
+  public updateTimestamp?: Date;
 }
 
 Exercise.init(

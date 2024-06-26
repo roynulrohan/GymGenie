@@ -1,6 +1,7 @@
 import { DataTypes, HasManyAddAssociationMixin, HasManyRemoveAssociationMixin, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from '../db/connection';
 import { Workout, WorkoutCreationDAO } from './Workout';
+import { User } from './User';
 
 export interface ProgramCreationDAO {
   name: string;
@@ -21,9 +22,13 @@ export class Program extends Model<InferAttributes<Program>, InferCreationAttrib
   public workoutSplit!: string;
   public schedule!: string;
 
+  public workoutOrder: string[];
+
   public readonly Workouts?: Workout[];
   public addWorkout!: HasManyAddAssociationMixin<Workout, string>;
   public removeWorkout!: HasManyRemoveAssociationMixin<Workout, string>;
+
+  declare userId: string;
 }
 
 Program.init(
@@ -45,6 +50,16 @@ Program.init(
     schedule: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    userId: {
+      type: DataTypes.UUID,
+      references: {
+        model: User,
+        key: 'id',
+      },
+    },
+    workoutOrder: {
+      type: DataTypes.JSON,
     },
   },
   {

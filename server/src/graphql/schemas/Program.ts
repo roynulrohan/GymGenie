@@ -30,11 +30,17 @@ export const ProgramTypeDef = `#graphql
         name: String!
         workoutSplit: WorkoutSplit!
         schedule: Schedule!
+        
         workouts: [WorkoutInput!]!
     }
 
     
     # For Queries
+
+    type ProgramsResponse {
+        presetPrograms: [Program!]
+        customPrograms: [Program!]
+    }
     
     type ProgramResponse {
         program: Program!
@@ -59,8 +65,8 @@ export const ProgramTypeDef = `#graphql
     # Query and Mutation definitions
     
     extend type Query {
-        getPrograms: [Program!]
-        getProgram(id: String!): ProgramResponse!
+        getPrograms: ProgramsResponse!
+        getProgramByName(name: String!): ProgramResponse!
     }
     
     extend type Mutation {
