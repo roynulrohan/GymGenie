@@ -65,7 +65,7 @@ export const ProgramTypeDef = `#graphql
     
     extend type Mutation {
         createProgram(program:ProgramInput!): CreateProgramResponse!
-        updateProgram(id: String!, name: String, workoutSplit: String, schedule: String): UpdateProgramResponse!
+        updateProgram(id: String!, name: String, workoutSplit: WorkoutSplit, schedule: Schedule): UpdateProgramResponse!
         deleteProgram(id: String!): DeleteProgramResponse!
     }
 `;

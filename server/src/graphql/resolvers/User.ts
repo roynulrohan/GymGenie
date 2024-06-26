@@ -8,17 +8,9 @@ import { deleteUser, getUserByAuthId, getUserById, getUserByUsername, updateUser
 export const UserResolver = {
   User: {
     Programs: async (obj: User, {}, context) => {
-      const cachedPrograms = await redis.get(`programsByUserId:${obj.id}`);
+      const programs = (await User.findByPk(obj.id, { include: [{ model: Program, as: 'Programs' }] })).Programs;
 
-      if (cachedPrograms) {
-        return JSON.parse(cachedPrograms);
-      } else {
-        const programs = (await User.findByPk(obj.id, { include: [{ model: Program, as: 'Programs' }] })).Programs;
-
-        await redis.set(`programsByUserId:${obj.id}`, JSON.stringify(programs), 'EX', 120);
-
-        return programs;
-      }
+      return programs;
     },
   },
 

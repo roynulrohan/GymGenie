@@ -98,5 +98,97 @@ export const ProgramResolver = {
 
       return { program: newProgram };
     },
+    deleteProgram: async (_, { id }, context) => {
+      const { token } = context;
+      const jwtResult = await isTokenValid(token);
+
+      if (jwtResult?.error || !jwtResult?.id) {
+        throw new GraphQLError(jwtResult?.error.toString(), {
+          extensions: {
+            code: 'UNAUTHORIZED',
+          },
+        });
+      }
+
+      const authId = jwtResult.id;
+
+      const user = await getUserByAuthId(authId);
+
+      if (!user) {
+        throw new GraphQLError('User not found', {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      }
+
+      const program = await Program.findByPk(id);
+
+      if (!program) {
+        throw new GraphQLError('Program not found', {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      }
+
+      await user.removeProgram(program);
+      await user.save();
+
+      await program.destroy();
+
+      return { message: 'Program deleted' };
+    },
+
+    updateProgram: async (_, { id, name, workoutSplit, schedule }, context) => {
+      const { token } = context;
+      const jwtResult = await isTokenValid(token);
+
+      if (jwtResult?.error || !jwtResult?.id) {
+        throw new GraphQLError(jwtResult?.error.toString(), {
+          extensions: {
+            code: 'UNAUTHORIZED',
+          },
+        });
+      }
+
+      const authId = jwtResult.id;
+
+      const user = await getUserByAuthId(authId);
+
+      if (!user) {
+        throw new GraphQLError('User not found', {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      }
+
+      const program = await Program.findByPk(id);
+
+      if (!program) {
+        throw new GraphQLError('Program not found', {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      }
+
+      if (name) {
+        program.name = name;
+      }
+
+      if (workoutSplit) {
+        program.workoutSplit = workoutSplit;
+      }
+
+      if (schedule) {
+        program.schedule = schedule;
+      }
+
+      await program.save();
+
+      return program;
+    },
   },
 };

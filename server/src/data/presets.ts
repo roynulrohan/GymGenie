@@ -18,8 +18,8 @@ export const PresetExercises: ExerciseCreationDAO[] = [
     deloadFrequency: 3,
   },
   {
-    id: 'deadlifts',
-    name: 'Deadlifts',
+    id: 'deadlift',
+    name: 'Deadlift',
     description:
       'Deadlifts are a compound exercise that works the muscles in your lower body and back. They are a great exercise for building strength and muscle mass in your hamstrings, glutes, lower back, and traps.',
     muscle: 'Legs',
