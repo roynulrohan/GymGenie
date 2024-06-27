@@ -1,10 +1,10 @@
-import NumberInput from '@/components/NumberInput';
-import WeightPlatesView from '@/components/WeightPlatesView';
-import { updateExercise } from '@/redux/programCreateSlice';
-import { AppDispatch, RootState } from '@/redux/store';
-import { roundToNearestFive } from '@/util/formatting';
+import NumberInput from '@/src/components/NumberInput';
+import WeightPlatesView from '@/src/components/WeightPlatesView';
+import { updateExercise } from '@/src/redux/programCreateSlice';
+import { AppDispatch, RootState } from '@/src/redux/store';
+import { roundToNearestFive } from '@/src/util/formatting';
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import tailwindColors from 'tailwindcss/colors';

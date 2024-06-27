@@ -1,20 +1,20 @@
-import FormInput from '@/components/FormInput';
-import { ThemedText } from '@/components/ThemedText';
-import { addWorkout, deleteWorkout, IExercise } from '@/redux/programCreateSlice';
-import { AppDispatch, RootState } from '@/redux/store';
+import FormInput from '@/src/components/FormInput';
+import { ThemedText } from '@/src/components/ThemedText';
+import { addWorkout, deleteWorkout, IExercise } from '@/src/redux/programCreateSlice';
+import { AppDispatch, RootState } from '@/src/redux/store';
 import { AntDesign } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
-import React, { useEffect, useMemo } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Keyboard, Pressable, StyleSheet, Text, View } from 'react-native';
 import ContextMenu from 'react-native-context-menu-view';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useDispatch, useSelector } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
-import tailwindColors from 'tailwindcss/colors';
 import uuid from 'react-native-uuid';
 import { z } from 'zod';
+import { useMemo, useEffect } from 'react';
+import tailwindColors from 'tailwindcss/colors';
 
 const programFormSchema = z.object({
     name: z.string().min(3, 'Program name must be at least 3 characters').max(50, "Program name can't be longer than 50 characters"),

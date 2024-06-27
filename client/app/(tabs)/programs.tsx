@@ -1,5 +1,5 @@
-import { ThemedText } from '@/components/ThemedText';
-import { loadPresetPrograms, Program } from '@/util/loadPresetWorkouts';
+import { ThemedText } from '@/src/components/ThemedText';
+import { loadPresetPrograms, Program } from '@/src/util/loadPresetWorkouts';
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, View, ViewProps } from 'react-native';

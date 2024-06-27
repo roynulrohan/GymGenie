@@ -1,11 +1,10 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { AntDesign, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
 import tailwindColors from 'tailwindcss/colors';
 import { Link } from '@react-navigation/native';
+import { TabBarIcon } from '@/src/components/navigation/TabBarIcon';
 
 export default function TabLayout() {
     return (

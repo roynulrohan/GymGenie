@@ -1,12 +1,12 @@
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
-import { useEffect, useState } from 'react';
 import { Button, Text, View } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { useNavigation } from 'expo-router';
 import { Image } from 'expo-image';
+import { useState } from 'react';
 
 WebBrowser.maybeCompleteAuthSession();
 

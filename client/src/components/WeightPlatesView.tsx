@@ -1,4 +1,4 @@
-import { calculateWeightPlates } from '@/services/WeightPlateCalculator';
+import { calculateWeightPlates } from '@/src/services/WeightPlateCalculator';
 import React, { useMemo } from 'react';
 import { Text, View, ViewProps } from 'react-native';
 import Animated, { SlideInRight, SlideOutRight } from 'react-native-reanimated';

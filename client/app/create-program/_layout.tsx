@@ -1,8 +1,8 @@
-import { ThemedText } from '@/components/ThemedText';
-import { resetWorkouts } from '@/redux/programCreateSlice';
-import { AppDispatch } from '@/redux/store';
+import { ThemedText } from '@/src/components/ThemedText';
+import { resetWorkouts } from '@/src/redux/programCreateSlice';
+import { AppDispatch } from '@/src/redux/store';
 import { Link, Stack } from 'expo-router';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 import tailwindColors from 'tailwindcss/colors';

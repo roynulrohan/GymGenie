@@ -1,16 +1,16 @@
-import FormInput from '@/components/FormInput';
-import { IExercise, removeExercise, setWorkouts, updateName } from '@/redux/programCreateSlice';
-import { AppDispatch, RootState } from '@/redux/store';
+import FormInput from '@/src/components/FormInput';
+import { IExercise, removeExercise, setWorkouts, updateName } from '@/src/redux/programCreateSlice';
+import { RootState, AppDispatch } from '@/src/redux/store';
 import { AntDesign } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Keyboard, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useDispatch, useSelector } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import tailwindColors from 'tailwindcss/colors';
 
 const workoutFormSchema = z.object({
